@@ -136,6 +136,11 @@ const SignIn = () => {
                                 <small>
                                     New User? <Link to={"/signUp"} className="text-muted">Sign up</Link>
                                 </small>
+                                <br />
+                                <small>
+                                    <mark> Test User: tester@gmail.com</mark><br />
+                                    <mark> Test Password: Tester@1234</mark>
+                                </small>
                             </div>
                             {/* ________________________ */}
                         </AuthCard>

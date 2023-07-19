@@ -54,7 +54,7 @@ const ShortUrlDataTable = (props) => {
                 }
             })
 
-    }, [page, clicked, cookies.token])
+    }, [page, cookies.token])
 
     function wait() {
         return new Promise(resolve => {
@@ -64,26 +64,25 @@ const ShortUrlDataTable = (props) => {
         });
     }
 
-    /* 
-        useEffect(() => {
-            axios.get(`${process.env.REACT_APP_SERVER_URL}/api/url?page=${page}`, { withCredentials: true })
-                .then(response => {
-                    setTotal_items(response.data.count)
-                    setMyShortUrl(response.data.items)
-                    setPage(response.data.page)
-                    setTotalPages(response.data.pageCount)
-                    console.log(response.data)
-    
-                })
-                .catch(error => {
-                    console.log("UseEffect Error")
-                    console.log(error)
-                    if (error.message === "jwt expired") {
-                        Navigate("/sign-in")
-                    }
-                })
-    
-        }, [clicked]) */
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/url?page=${page}`, { withCredentials: true })
+            .then(response => {
+                setTotal_items(response.data.count)
+                setMyShortUrl(response.data.items)
+                setPage(response.data.page)
+                setTotalPages(response.data.pageCount)
+                console.log(response.data)
+
+            })
+            .catch(error => {
+                console.log("UseEffect Error")
+                console.log(error)
+                if (error.message === "jwt expired") {
+                    Navigate("/sign-in")
+                }
+            })
+
+    }, [clicked])
 
 
     const TableHeader = () => {
@@ -116,20 +115,32 @@ const ShortUrlDataTable = (props) => {
         const handleDelete = (id) => {
 
             // Delete Item 
-            axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/url/${id}`, { withCredentials: true })
-                .then(response => { console.log(response) })
-                .catch(err => { console.log(err) })
-
-            // Show item after Delete
-            axios.get(`${process.env.REACT_APP_SERVER_URL}/api/url?page=${page}`, { withCredentials: true })
+            axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/url/${id}`,
+                {
+                    withCredentials: true,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                        'token': cookies.token
+                    }
+                }
+            )
                 .then(response => {
                     setTotal_items(response.data.count)
                     setMyShortUrl(response.data.items)
                     setPage(response.data.page)
                     setTotalPages(response.data.pageCount)
-                    console.log(response.data)
+                    console.log("Reload Data after Delete: ", response.data)
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error)
+                    if (error.message === "jwt expired") {
+                        Navigate("/sign-in")
+                    }
+                })
+
+
+
 
         };
 
