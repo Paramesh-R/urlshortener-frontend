@@ -25,7 +25,7 @@ const ShortUrlDataTable = (props) => {
     const [totalPages, setTotalPages] = useState(0);
 
     // Cookies
-    const [cookies]=useCookies([]);
+    const [cookies] = useCookies([]);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/url?page=${page}`,
@@ -54,7 +54,7 @@ const ShortUrlDataTable = (props) => {
                 }
             })
 
-    }, [page, clicked])
+    }, [page, clicked, cookies.token])
 
     function wait() {
         return new Promise(resolve => {
