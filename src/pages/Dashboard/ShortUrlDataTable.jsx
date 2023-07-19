@@ -54,7 +54,7 @@ const ShortUrlDataTable = (props) => {
                 }
             })
 
-    }, [page, cookies.token])
+    }, [page, cookies.token, clicked])
 
     function wait() {
         return new Promise(resolve => {
@@ -64,26 +64,7 @@ const ShortUrlDataTable = (props) => {
         });
     }
 
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/url?page=${page}`, { withCredentials: true })
-            .then(response => {
-                setTotal_items(response.data.count)
-                setMyShortUrl(response.data.items)
-                setPage(response.data.page)
-                setTotalPages(response.data.pageCount)
-                console.log(response.data)
-
-            })
-            .catch(error => {
-                console.log("UseEffect Error")
-                console.log(error)
-                if (error.message === "jwt expired") {
-                    Navigate("/sign-in")
-                }
-            })
-
-    }, [clicked, page])
-
+   
 
     const TableHeader = () => {
         return (
