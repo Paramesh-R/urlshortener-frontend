@@ -19,7 +19,7 @@ const CreateUrl = (props) => {
     const { userInfo } = useContext(UserContext);
     const user_id = userInfo?._id
 
-    const [urlPayload, setUrlPayload] = useState({ "originalLink": "", "name": "" })
+    const [urlPayload, setUrlPayload] = useState({ "originalLink": "", "name": "", "token": cookies.token })
     const [shortUrl, setShortUrl] = useState("");
 
     const { originalLink, name } = urlPayload;
@@ -41,7 +41,14 @@ const CreateUrl = (props) => {
             await axios
                 .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
                     { ...urlPayload, createdBy: user_id },
-                    { withCredentials: true, }
+                    {
+                        withCredentials: true,
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json',
+                            'token': cookies.token
+                        }
+                    }
                 )
                 /* .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
                     { ...urlPayload, createdBy: user_id },

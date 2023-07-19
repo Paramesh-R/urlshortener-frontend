@@ -8,6 +8,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 import axios from 'axios'
 import copy from "copy-to-clipboard";
+import { useCookies } from 'react-cookie';
 
 import './table.css';
 import PageHead from '../../components/PageHead/PageHead'
@@ -23,8 +24,20 @@ const ShortUrlDataTable = (props) => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
 
+    // Cookies
+    const [cookies]=useCookies([]);
+
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/url?page=${page}`, { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/url?page=${page}`,
+            {
+                withCredentials: true,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json',
+                    'token': cookies.token
+                }
+            }
+        )
             .then(response => {
                 setTotal_items(response.data.count)
                 setMyShortUrl(response.data.items)
