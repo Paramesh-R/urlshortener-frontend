@@ -34,7 +34,7 @@ const ShortUrlDataTable = (props) => {
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Content-Type': 'application/json',
-                    'token': cookies.token
+                    'token': cookies.token,
                 }
             }
         )
@@ -64,7 +64,7 @@ const ShortUrlDataTable = (props) => {
         });
     }
 
-   
+
 
     const TableHeader = () => {
         return (
@@ -102,7 +102,8 @@ const ShortUrlDataTable = (props) => {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'application/json',
-                        'token': cookies.token
+                        'token': cookies.token,
+                        'page': page
                     }
                 }
             )
