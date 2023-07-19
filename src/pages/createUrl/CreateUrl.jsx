@@ -9,11 +9,12 @@ import { Icon } from '@iconify/react';
 // import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext';
 import copy from "copy-to-clipboard";
+import { useCookies } from 'react-cookie';
 
 const CreateUrl = (props) => {
 
     // const navigate = useNavigate();
-    // const [cookies, setCookie, removeCookie] = useCookies([]);
+    const [cookies] = useCookies([]);
 
     const { userInfo } = useContext(UserContext);
     const user_id = userInfo?._id
@@ -38,9 +39,17 @@ const CreateUrl = (props) => {
             e.preventDefault();
 
             await axios
-                .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
+                /* .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
                     { ...urlPayload, createdBy: user_id },
                     { withCredentials: true }
+                ) */
+                .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
+                    { ...urlPayload, createdBy: user_id },
+                    {
+                        headers: {
+                            "cookies": `token=${cookies.token}`
+                        }
+                    }
                 )
                 .then(response => {
 
