@@ -39,18 +39,17 @@ const CreateUrl = (props) => {
             e.preventDefault();
 
             await axios
-                /* .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
-                    { ...urlPayload, createdBy: user_id },
-                    { withCredentials: true }
-                ) */
                 .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
                     { ...urlPayload, createdBy: user_id },
-                    {
-                        headers: {
+                    { withCredentials: true, }
+                )
+                /* .post(`${process.env.REACT_APP_SERVER_URL}/api/url`,
+                    { ...urlPayload, createdBy: user_id },
+                    {                        headers: {
                             "cookies": `token=${cookies.token}`
                         }
                     }
-                )
+                ) */
                 .then(response => {
 
                     // Nano URL already Exist
