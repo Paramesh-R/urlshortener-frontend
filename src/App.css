@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+/* Pagination Color */
+.pagination > li > a {
+  background-color: white;
+  color: #dc3a4a;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+  color: #dc3a4a;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination > li.page-item.active > span {
+  background-color: #dc3a4a !important;
+  border-color: #ddd;
+}
+.pagination > li.page-item.active > span:hover {
+  color: white;
+  background-color: #dc3a4a !important;
+  border-color: #ddd;
+}
+
+.page-item > .active > a {
+  color: white;
+  background-color: purple;
+  border: solid 1px purple;
+}
+
+.page-item > .active > a:hover {
+  color: white;
+  background-color: #dc3a4a;
+  border: solid 1px #dc3a4a;
+}

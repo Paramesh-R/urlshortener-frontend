@@ -1,11 +1,14 @@
+import { UserContextProvider } from './UserContext';
 import './App.css';
 import MainRoutes from './MainRoutes';
 
 function App() {
   return (
-    <div className="App">
-      <MainRoutes />
-    </div>
+    <UserContextProvider>
+      <div className="App">
+        <MainRoutes />
+      </div>
+    </UserContextProvider>
   );
 }
 
