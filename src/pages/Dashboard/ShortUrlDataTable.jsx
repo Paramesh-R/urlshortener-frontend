@@ -82,7 +82,7 @@ const ShortUrlDataTable = (props) => {
                 }
             })
 
-    }, [clicked])
+    }, [clicked, page])
 
 
     const TableHeader = () => {
